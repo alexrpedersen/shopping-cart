@@ -24,6 +24,8 @@ function handleSubmit(event) {
 
   // TODO: Prevent the page from reloading
 
+  event.preventDefault();
+
   // Do all the things ...
   addSelectedItemToCart();
   cart.saveToLocalStorage();
@@ -35,18 +37,32 @@ function handleSubmit(event) {
 // TODO: Add the selected item and quantity to the cart
 function addSelectedItemToCart() {
   // TODO: suss out the item picked from the select list
+  var product = document.getElementById('items').value;
   // TODO: get the quantity
+  var quantity = document.getElementById('quantity').value; 
   // TODO: using those, add one item to the Cart
+  cart.product = product;
+  cart.quantity += quantity;
 }
 
 // TODO: Update the cart count in the header nav with the number of items in the Cart
-function updateCounter() {}
+function updateCounter() {
+  var counterEl = document.createElement('p');
+  var countEl = document.getElementById('itemCount');
+  counterEl.textContent = ("# Items in Cart: " + cart.items.length);
+  countEl.appendChild(counterEl);  
+}
 
 // TODO: As you add items into the cart, show them (item & quantity) in the cart preview div
 function updateCartPreview() {
-  // TODO: Get the item and quantity from the form
-  // TODO: Add a new element to the cartContents div with that information
-}
+  var item = document.getElementById('items').value;
+    var quant = document.getElementById('quantity').value;
+    // TODO: Get the item and quantity from the form
+    var pEl = document.createElement('p');
+    pEl.textContent = ('Item Choice: ' + item + ', Quantity: ' + quant);
+    // TODO: Add a new element to the cartContents div with that information
+    var divEl = document.getElementById('cartContents');
+    divEl.appendChild(pEl);
 
 // Set up the "submit" event listener on the form.
 // This is the trigger for the app. When a user "submits" the form, it will
@@ -56,4 +72,5 @@ catalogForm.addEventListener('submit', handleSubmit);
 
 // Before anything else of value can happen, we need to fill in the select
 // drop down list in the form.
+}
 populateForm();
